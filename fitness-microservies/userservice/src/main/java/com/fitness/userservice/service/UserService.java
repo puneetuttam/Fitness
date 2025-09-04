@@ -7,10 +7,14 @@ import com.fitness.userservice.model.User;
 import com.fitness.userservice.repository.UserRepository;
 import jakarta.validation.Valid;
 import jdk.jshell.spi.ExecutionControl;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
+@RequiredArgsConstructor
 public class UserService {
 
     @Autowired
@@ -56,5 +60,10 @@ public class UserService {
         userResponse.setUpdatedAt(user.getUpdatedAt());
 
         return userResponse;
+    }
+
+    public Boolean existByUserId(String userId) {
+        log.info("Calling user VAlidation API for userId : {} ",userId);
+        return userRepository.existsById(userId);
     }
 }
